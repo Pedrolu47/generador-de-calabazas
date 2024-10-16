@@ -1,0 +1,252 @@
+:root {
+    --author: "Matt Cannon";
+    --contact: "mc@mattcannon.design";
+    --description: "An AI Powered Jack-O'-Lantern generator that carves pumpkins with a sprinkle of magic and a dash of mischief. I left the dropdowns a bit wide so that you can edit the prompts to your hearts content if desired. Have fun!";
+    --keywords: "codepenchallenge, cpc-halloween-pumpkins, ai, jackolantern, pumpkin, halloween, spooky, generator";
+    --last-modified: "2024-10-08";
+    --content-language: "en";
+    --generator: "HTML5, CSS3, JavaScript, jQuery, Pollinations AI API";
+    --title: "AI Jack-O'Lantern Generator";
+  }
+  
+  * {
+    font-family: "Rubik", sans-serif;
+    box-sizing: border-box;
+  }
+  
+  body {
+    margin: 0;
+    padding: 0;
+    background-color: #121212;
+    color: #ff6600;
+  }
+  
+  .header-container {
+    width: 95%;
+    max-width: 1200px;
+    margin: 2rem auto;
+  }
+  
+  .header-image {
+    width: 100%;
+    height: 100px;
+    object-fit: cover;
+    object-position: center;
+  }
+  
+  .container {
+    width: 95%;
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: #1e1e1e;
+    border-radius: 20px;
+    padding: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+  }
+  
+  .generator,
+  .output {
+    flex: 1;
+    min-width: 300px;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .input-group {
+    margin-bottom: 1.5rem;
+  }
+  
+  label {
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 0.5rem;
+  }
+  
+  label i {
+    margin-right: 0.5rem;
+    font-size: 1.2rem;
+    color: #ff6600;
+  }
+  
+  select {
+    width: 100%;
+    padding: 0.75rem;
+    padding-right: 2.5rem;
+    border: 2px solid #ff6600;
+    border-radius: 10px;
+    background-color: #2a2a2a;
+    color: #ffffff;
+    appearance: none;
+    background-image: url('data:image/svg+xml;utf8,<svg fill="%23ff6600" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: right 0.7rem center;
+    background-size: 1.5em auto;
+  }
+  
+  select:focus {
+    outline: none;
+    border-color: #ff9933;
+    box-shadow: 0 0 10px rgba(255, 153, 51, 0.5);
+  }
+  
+  button,
+  #dlLink {
+    width: 100%;
+    background-color: #222325;
+    color: #ffffff;
+    padding: 1rem;
+    border: 2px solid #ffffff;
+    border-radius: 50px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    margin-top: auto;
+  }
+  
+  button:hover,
+  #dlLink:hover {
+    background-color: #ff9933;
+  }
+  
+  button i,
+  #dlLink i {
+    margin-right: 0.5rem;
+  }
+  
+  .output {
+    text-align: center;
+    position: relative;
+  }
+  
+  #message {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    color: #ffffff;
+    font-weight: 600;
+  }
+  
+  #image-container {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+  
+  #image-container img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+  }
+  
+  .loader {
+    width: 64px;
+    height: 220px;
+    border: 3px solid #ff6600;
+    border-radius: 0 0 50px 50px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0px 0px #ff3d00 inset;
+    background-image: linear-gradient(#ff3d00 100%, transparent 0);
+    background-position: 0px 220px;
+    background-size: 64px 220px;
+    background-repeat: no-repeat;
+    animation: animloader98 6s linear infinite;
+    display: none;
+  }
+  
+  .loader::after {
+    content: "";
+    box-sizing: border-box;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    position: absolute;
+    border: 3px solid #ff6600;
+    border-radius: 50%;
+    width: 78px;
+    height: 16px;
+  }
+  
+  .loader::before {
+    content: "";
+    box-sizing: border-box;
+    left: 0;
+    bottom: -11px;
+    border-radius: 50%;
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    animation: animloader98s 6s linear infinite;
+  }
+  
+  @keyframes animloader98 {
+    0% {
+      background-position: 0 220px;
+    }
+    100% {
+      background-position: 0 0;
+    }
+  }
+  
+  @keyframes animloader98s {
+    0% {
+      box-shadow: 8px -10px rgba(255, 102, 0, 0), 12px 0px rgba(255, 102, 0, 0),
+        16px -15px rgba(255, 102, 0, 0), 24px 0px rgba(255, 102, 0, 0);
+    }
+    20% {
+      box-shadow: 8px -40px rgba(255, 102, 0, 0), 12px -20px rgba(255, 102, 0, 0),
+        16px -60px rgba(255, 102, 0, 0.5), 24px -10px rgba(255, 102, 0, 0);
+    }
+    40% {
+      box-shadow: 4px -80px rgba(255, 102, 0, 0.5),
+        12px -60px rgba(255, 102, 0, 0.4), 16px -120px rgba(255, 102, 0, 0.5),
+        24px -30px rgba(255, 102, 0, 0.5);
+    }
+    60% {
+      box-shadow: 8px -120px rgba(255, 102, 0, 0.5),
+        12px -100px rgba(255, 102, 0, 0.4), 16px -180px rgba(255, 102, 0, 0.5),
+        24px -50px rgba(255, 102, 0, 0.5);
+    }
+    80% {
+      box-shadow: 4px -160px rgba(255, 102, 0, 0.5),
+        8px -140px rgba(255, 102, 0, 0.4), 16px -240px rgba(255, 102, 0, 0),
+        24px -70px rgba(255, 102, 0, 0.5);
+    }
+    100% {
+      box-shadow: 8px -200px rgba(255, 102, 0, 0),
+        12px -180px rgba(255, 102, 0, 0), 16px -240px rgba(255, 102, 0, 0),
+        24px -90px rgba(255, 102, 0, 0);
+    }
+  }
+  
+  button {
+    min-height: 50px; /* Adjust this value as needed */
+  }
+  
+  .output {
+    min-height: 550px; /* Adjust this value based on your layout */
+  }
+  
+  @media (max-width: 768px) {
+    .container {
+      flex-direction: column;
+    }
+    .generator,
+    .output {
+      width: 100%;
+    }
+  }
+  
